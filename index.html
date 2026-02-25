@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>디스코드 서버 리스트</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f2f5;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: #5865F2;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    #search {
+      display: block;
+      margin: 20px auto;
+      padding: 10px;
+      width: 90%;
+      max-width: 400px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+    .server-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      padding: 20px;
+    }
+    .server-card {
+      background: white;
+      width: 250px;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      padding: 15px;
+      text-align: center;
+    }
+    .server-card img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    .server-card h3 {
+      margin: 10px 0 5px 0;
+      font-size: 18px;
+    }
+    .server-card p {
+      font-size: 14px;
+      color: #555;
+      min-height: 40px;
+    }
+    .join-btn {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 8px 16px;
+      background: #5865F2;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: 0.3s;
+    }
+    .join-btn:hover {
+      background: #4752C4;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>디스코드 서버 리스트</h1>
+</header>
+
+<input type="text" id="search" placeholder="서버 검색...">
+
+<div class="server-list" id="serverList">
+  <!-- 서버 카드가 여기 나타납니다 -->
+</div>
+
+<script>
+const servers = [
+  {
+    name: "청초",
+    desc: "디자인팀 연화님이 운영 중이신 청초 서버 입니다",
+    img: "https://cdn-icons-png.flaticon.com/512/2111/2111370.png",
+    invite: "https://discord.gg/sw7sa92pPv"
+  },
+];
+
+const serverList = document.getElementById('serverList');
+
+function displayServers(list) {
+  serverList.innerHTML = list.map(s => `
+    <div class="server-card">
+      <img src="${s.img}" alt="서버 이미지">
+      <h3>${s.name}</h3>
+      <p>${s.desc}</p>
+      <a class="join-btn" href="${s.invite}" target="_blank">참가</a>
+    </div>
+  `).join('');
+}
+
+// 초기 서버 표시
+displayServers(servers);
+
+// 검색 기능
+document.getElementById('search').addEventListener('input', e => {
+  const keyword = e.target.value.toLowerCase();
+  const filtered = servers.filter(s => s.name.toLowerCase().includes(keyword) || s.desc.toLowerCase().includes(keyword));
+  displayServers(filtered);
+});
+</script>
+
+</body>
+</html>
